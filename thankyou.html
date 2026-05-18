@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Thank You</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://www.w3counter.com/tracker.js?id=139888"></script>
+<style>
+body{
+background:#06111f;
+color:#fff;
+font-family:Poppins,sans-serif;
+text-align:center;
+padding:80px;
+}
+.box{
+background:#0d1726;
+padding:40px;
+border-radius:20px;
+display:inline-block;
+}
+h1{color:#00e5ff;}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h1>✅ Thank You!</h1>
+<p>You are successfully registered.</p>
+
+<p><b>Your email:</b></p>
+<div id="email"></div>
+
+<p><b>Traffic source:</b></p>
+<div id="source"></div>
+</div>
+
+<script>
+const leads = JSON.parse(localStorage.getItem("leads") || "[]");
+const last = leads[leads.length - 1];
+
+const utm = JSON.parse(localStorage.getItem("utm") || "{}");
+
+document.getElementById("email").innerText = last?.email || "unknown";
+
+document.getElementById("source").innerText =
+utm.source + " / " + (utm.campaign || "no campaign");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PRO DASHBOARD v2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://www.w3counter.com/tracker.js?id=139888"></script>
+<style>
+body{
+background:#06111f;
+color:#fff;
+font-family:Arial;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+}
+
+.card{
+background:#0d1726;
+padding:20px;
+border-radius:15px;
+border:1px solid #00d4ff33;
+}
+
+h2{color:#00e5ff;}
+
+.big{
+font-size:28px;
+font-weight:bold;
+}
+
+.small{
+font-size:12px;
+opacity:0.8;
+white-space:pre-wrap;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📊 PRO ANALYTICS DASHBOARD v2</h1>
+
+<div class="grid">
+
+<div class="card">
+<h2>👆 PayPal Clicks</h2>
+<div class="big" id="paypal">0</div>
+</div>
+
+<div class="card">
+<h2>₿ BTC Clicks</h2>
+<div class="big" id="btc">0</div>
+</div>
+
+<div class="card">
+<h2>📩 Leads (emails)</h2>
+<div class="big" id="leads">0</div>
+<div class="small" id="leadList"></div>
+</div>
+
+<div class="card">
+<h2>🎯 Conversions</h2>
+<div class="big" id="conv">0</div>
+</div>
+
+<div class="card">
+<h2>👥 Visitors</h2>
+<div class="big" id="visitors">0</div>
+</div>
+
+<div class="card">
+<h2>🌍 Countries</h2>
+<div class="small" id="countries"></div>
+</div>
+
+</div>
+
+<h2 style="margin-top:30px;">🌍 Traffic Sources (UTM + Affiliate)</h2>
+<div class="card" id="sources"></div>
+
+<h2 style="margin-top:30px;">📜 Event Log</h2>
+<div class="card" id="log"></div>
+
+<script>
+// =====================
+// LOAD DATA
+// =====================
+const events = JSON.parse(localStorage.getItem("events") || "[]");
+const leads = JSON.parse(localStorage.getItem("leads") || "[]");
+
+// =====================
+// COUNTS
+// =====================
+const paypal = events.filter(e=>e.type==="paypal_click").length;
+const btc = events.filter(e=>e.type==="btc_click").length;
+const conv = events.filter(e=>e.type==="conversion").length;
+
+// unique visitors
+const visitors = new Set(events.map(e=>e.visitorId)).size;
+
+// =====================
+// UTILS
+// =====================
+function safe(x){ return x || "unknown"; }
+
+// =====================
+// RENDER BASIC STATS
+// =====================
+document.getElementById("paypal").innerText = paypal;
+document.getElementById("btc").innerText = btc;
+document.getElementById("leads").innerText = leads.length;
+document.getElementById("conv").innerText = conv;
+document.getElementById("visitors").innerText = visitors;
+
+// =====================
+// LEADS (EMAILS FIX)
+// =====================
+document.getElementById("leadList").innerText =
+leads.map(l => `📧 ${l.email} (${l.time})`).join("\n");
+
+// =====================
+// COUNTRY TRACKING
+// =====================
+const countries = {};
+events.forEach(e=>{
+const c = safe(e.country);
+countries[c] = (countries[c]||0)+1;
+});
+
+document.getElementById("countries").innerHTML =
+Object.entries(countries)
+.map(([k,v])=>`🌍 ${k}: ${v}`)
+.join("<br>");
+
+// =====================
+// SOURCE ATTRIBUTION (FULL UTM + AFFILIATE)
+// =====================
+const sources = {};
+
+events.forEach(e=>{
+let key =
+`utm:${safe(e.utm?.source)} | camp:${safe(e.utm?.campaign)} | med:${safe(e.utm?.medium)} | ref:${safe(e.ref)} | aff:${safe(e.affiliate)}`;
+
+sources[key] = (sources[key]||0)+1;
+});
+
+document.getElementById("sources").innerHTML =
+Object.entries(sources)
+.map(([k,v])=>`<div>${k} → ${v}</div>`)
+.join("");
+
+// =====================
+// FULL EVENT LOG
+// =====================
+document.getElementById("log").innerText =
+events.map(e =>
+`${e.time} | ${e.type} | ${e.email || "-"} | ${e.utm?.source || "-"} | ${e.ref || "-"} | ${e.affiliate || "-"} | ${e.country || "-"}`
+).join("\n");
+
+</script>
+
+</body>
+</html>
