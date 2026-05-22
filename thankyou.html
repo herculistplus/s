@@ -1,216 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You — Access Granted | Buyer Traffic System</title>
-  <meta name="robots" content="noindex, nofollow"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --black:#030508; --deep:#070d14; --card:#0c1520; --border:#1a2d42;
-      --gold:#f5c342; --gold2:#e8a800; --green:#00d97e; --blue:#0094ff;
-      --orange:#ff6b1a; --btc:#f7931a;
-      --text:#e8edf3; --muted:#7a8fa6;
-      --font-head:'Bebas Neue',sans-serif; --font-body:'Barlow',sans-serif;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--black);color:var(--text);font-family:var(--font-body);font-size:17px;line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
-    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5}
-    .bg-glow{position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(0,217,126,.07) 0%,transparent 70%);pointer-events:none}
-    .confetti-wrap{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:100}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:52px 44px;max-width:600px;width:100%;text-align:center;position:relative;box-shadow:0 0 80px rgba(0,217,126,.08),0 32px 80px rgba(0,0,0,.6);animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both}
-    @keyframes popIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
-    .card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:50%;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent)}
-    .check-circle{width:80px;height:80px;background:rgba(0,217,126,.12);border:2px solid rgba(0,217,126,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:36px;animation:bounceIn .6s .2s cubic-bezier(.34,1.56,.64,1) both}
-    @keyframes bounceIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
-    h1{font-family:var(--font-head);font-size:clamp(42px,7vw,72px);letter-spacing:2px;line-height:1;margin-bottom:8px;animation:fadeUp .5s .3s ease both}
-    h1 span{color:var(--green)}
-    .subtitle{color:var(--muted);font-size:18px;margin-bottom:32px;animation:fadeUp .5s .4s ease both}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-    .access-box{background:var(--deep);border:1px solid rgba(0,217,126,.25);border-radius:14px;padding:24px;margin-bottom:28px;animation:fadeUp .5s .5s ease both}
-    .access-label{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-    .access-link{color:var(--green);font-size:18px;font-weight:700;word-break:break-all;text-decoration:none;display:block;padding:10px;background:rgba(0,217,126,.06);border-radius:8px;transition:background .2s}
-    .access-link:hover{background:rgba(0,217,126,.14)}
-    .btn-access{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,#00d97e,#00a65f);color:#000;font-family:var(--font-body);font-size:20px;font-weight:900;letter-spacing:1px;padding:18px 32px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;text-transform:uppercase;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 32px rgba(0,217,126,.3);margin-bottom:20px;animation:fadeUp .5s .6s ease both}
-    .btn-access:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(0,217,126,.45)}
-    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;animation:fadeUp .5s .7s ease both}
-    .info-item{background:var(--deep);border:1px solid var(--border);border-radius:10px;padding:14px 12px;text-align:left}
-    .info-key{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-    .info-val{font-size:14px;font-weight:700;color:var(--text)}
-    .share-row{display:flex;gap:10px;justify-content:center;margin-bottom:20px;animation:fadeUp .5s .8s ease both}
-    .share-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:13px;font-weight:700;padding:9px 18px;border-radius:8px;cursor:pointer;transition:border-color .2s,color .2s;text-transform:uppercase;letter-spacing:1px}
-    .share-btn:hover{border-color:var(--gold);color:var(--gold)}
-    .support-note{font-size:13px;color:var(--muted);animation:fadeUp .5s .9s ease both}
-    .support-note a{color:var(--blue)}
-    .utm-display{margin-top:20px;background:rgba(0,148,255,.06);border:1px solid rgba(0,148,255,.15);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--muted);text-align:left;display:none}
-    .utm-display.visible{display:block}
-    .utm-display b{color:var(--blue)}
-    @media(max-width:520px){.card{padding:32px 18px}.info-grid{grid-template-columns:1fr}}
-  </style>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N9QSFWC7YD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-N9QSFWC7YD');
-  </script>
+<title>Thank You</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://www.w3counter.com/tracker.js?id=139888"></script>
+<style>
+body{
+background:#06111f;
+color:#fff;
+font-family:Poppins,sans-serif;
+text-align:center;
+padding:80px;
+}
+.box{
+background:#0d1726;
+padding:40px;
+border-radius:20px;
+display:inline-block;
+}
+h1{color:#00e5ff;}
+</style>
 </head>
+
 <body>
-<div class="bg-glow"></div>
-<div class="confetti-wrap" id="confettiWrap"></div>
 
-<div class="card">
-  <div class="check-circle">✅</div>
+<div class="box">
+<h1>✅ Thank You!</h1>
+<p>You are successfully registered.</p>
 
-  <h1>PAYMENT<br/><span>CONFIRMED</span></h1>
-  <p class="subtitle">Welcome to the Buyer Traffic System. Your access is ready.</p>
+<p><b>Your email:</b></p>
+<div id="email"></div>
 
-  <div class="access-box">
-    <div class="access-label">🔐 Your Exclusive Access Link</div>
-    <a href="https://llclick.com/zdbjvm3v/" class="access-link" target="_blank" rel="noopener" id="accessLink">
-      https://llclick.com/zdbjvm3v/
-    </a>
-  </div>
-
-  <a href="https://llclick.com/zdbjvm3v/" class="btn-access" target="_blank" rel="noopener" id="mainAccessBtn">
-    🚀 ENTER THE TRAFFIC SYSTEM NOW
-  </a>
-
-  <div class="info-grid" id="infoGrid">
-    <div class="info-item">
-      <div class="info-key">Amount Paid</div>
-      <div class="info-val" id="infoAmount">$39.00</div>
-    </div>
-    <div class="info-item">
-      <div class="info-key">Payment Method</div>
-      <div class="info-val" id="infoMethod">PayPal</div>
-    </div>
-    <div class="info-item">
-      <div class="info-key">Status</div>
-      <div class="info-val" style="color:var(--green)">✓ Approved</div>
-    </div>
-    <div class="info-item">
-      <div class="info-key">Access</div>
-      <div class="info-val" style="color:var(--green)">✓ Lifetime</div>
-    </div>
-  </div>
-
-  <div class="share-row">
-    <button class="share-btn" onclick="copyLink()">📋 Copy Link</button>
-    <button class="share-btn" onclick="shareTwitter()">🐦 Share</button>
-    <button class="share-btn" onclick="window.print()">🖨️ Print</button>
-  </div>
-
-  <div class="utm-display" id="utmDisplay"></div>
-
-  <p class="support-note">
-    Questions? <a href="mailto:support@buyertrafficpro.netlify.app">Contact Support</a> · 
-    <a href="index.html">← Back to Home</a>
-  </p>
+<p><b>Traffic source:</b></p>
+<div id="source"></div>
 </div>
 
 <script>
-(function(){
-  // ---- Get UTM & session data ----
-  var utm = JSON.parse(localStorage.getItem('bts_utm') || '{}');
-  var method = new URLSearchParams(window.location.search).get('method') || 'paypal';
+const leads = JSON.parse(localStorage.getItem("leads") || "[]");
+const last = leads[leads.length - 1];
 
-  // ---- Detect method from URL or last click ----
-  var events = JSON.parse(localStorage.getItem('bts_events') || '[]');
-  var lastClick = [...events].reverse().find(function(e){ return e.type==='paypal_click'||e.type==='btc_click'; });
-  if(lastClick){ method = lastClick.type==='btc_click' ? 'crypto' : 'paypal'; }
-  document.getElementById('infoMethod').textContent = method==='crypto' ? '₿ Crypto/Bitcoin' : '💳 PayPal';
+const utm = JSON.parse(localStorage.getItem("utm") || "{}");
 
-  // ---- Log conversion ----
-  var conversionLogged = localStorage.getItem('bts_conv_logged');
-  if(!conversionLogged){
-    var ev = { type:'conversion', ts:Date.now(), utm:utm, data:{ method:method, amount:39, currency:'USD' } };
-    events.push(ev);
-    localStorage.setItem('bts_events', JSON.stringify(events));
+document.getElementById("email").innerText = last?.email || "unknown";
 
-    var stats = JSON.parse(localStorage.getItem('bts_stats') || '{}');
-    stats.conversions = (stats.conversions||0)+1;
-    stats.total_revenue = ((stats.total_revenue||0)+39);
-    if(method==='crypto') stats.btc_sales = (stats.btc_sales||0)+1;
-    else stats.paypal_sales = (stats.paypal_sales||0)+1;
-    localStorage.setItem('bts_stats', JSON.stringify(stats));
-    localStorage.setItem('bts_conv_logged', '1');
-    // GA4 purchase event
-    gtag('event', 'purchase', {
-      transaction_id: 'TXN_' + Date.now(),
-      value: 39.00,
-      currency: 'USD',
-      payment_method: method,
-      traffic_source: utm.source || 'direct',
-      affiliate: utm.affiliate || '',
-      items: [{ item_name: 'Buyer Traffic System', price: 39.00, quantity: 1 }]
-    });
-  }
-
-  // ---- Show UTM info ----
-  var utmDiv = document.getElementById('utmDisplay');
-  var parts = [];
-  if(utm.source && utm.source!=='direct') parts.push('<b>Source:</b> '+utm.source);
-  if(utm.medium && utm.medium!=='none')   parts.push('<b>Medium:</b> '+utm.medium);
-  if(utm.campaign && utm.campaign!=='none') parts.push('<b>Campaign:</b> '+utm.campaign);
-  if(utm.affiliate) parts.push('<b>Affiliate:</b> '+utm.affiliate);
-  if(parts.length){
-    utmDiv.innerHTML = '🔗 Traffic Attribution: ' + parts.join(' &nbsp;·&nbsp; ');
-    utmDiv.classList.add('visible');
-  }
-
-  // ---- Confetti ----
-  function confetti(){
-    var wrap = document.getElementById('confettiWrap');
-    var colors = ['#f5c342','#00d97e','#0094ff','#ff6b1a','#f7931a','#fff'];
-    for(var i=0;i<80;i++){
-      (function(i){
-        setTimeout(function(){
-          var el = document.createElement('div');
-          var color = colors[Math.floor(Math.random()*colors.length)];
-          var size = 6 + Math.random()*8;
-          el.style.cssText = [
-            'position:absolute',
-            'left:'+Math.random()*100+'%',
-            'top:-20px',
-            'width:'+size+'px',
-            'height:'+size+'px',
-            'background:'+color,
-            'border-radius:'+(Math.random()>.5?'50%':'2px'),
-            'opacity:'+(0.7+Math.random()*.3),
-            'animation:fall '+(1.5+Math.random()*2)+'s ease-in forwards'
-          ].join(';');
-          wrap.appendChild(el);
-          setTimeout(function(){ el.remove(); }, 3500);
-        }, i*30);
-      })(i);
-    }
-  }
-  var style = document.createElement('style');
-  style.textContent = '@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}';
-  document.head.appendChild(style);
-  setTimeout(confetti, 300);
-
-  // ---- Copy link ----
-  window.copyLink = function(){
-    navigator.clipboard.writeText('https://llclick.com/zdbjvm3v/').then(function(){
-      alert('✅ Access link copied to clipboard!');
-    });
-  };
-
-  // ---- Share Twitter ----
-  window.shareTwitter = function(){
-    var text = encodeURIComponent('Just got access to the Buyer Traffic System! Real buyers, real results. 🚀 #BuyerTraffic #AffiliateMarketing');
-    window.open('https://twitter.com/intent/tweet?text='+text, '_blank');
-  };
-
-  // ---- Timestamp ----
-  document.getElementById('infoAmount').textContent = '$39.00';
-})();
+document.getElementById("source").innerText =
+utm.source + " / " + (utm.campaign || "no campaign");
 </script>
+
 </body>
 </html>
